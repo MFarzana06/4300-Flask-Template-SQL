@@ -1,131 +1,59 @@
-.full-body-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-direction: column;
-    background-color: #1b1b1b;
-    color: white;
-}
-
-.roast-it-title {
-    display: flex;
-    align-items: center;
-    font-size: 50px;
-    font-family: 'Bungee', sans-serif;
-    color: #ffcc00;
-    text-shadow: 3px 3px #ff4d4d;
-}
-
-.roast-it-title h1 {
-    margin-bottom: 0;
-    margin-right: 5px;
-}
-
-#roast-r { color: #ff4d4d; text-shadow: 3px 3px #000; }
-#roast-o { color: #ff9933; }
-#roast-a { color: #ffcc00; }
-#roast-s { color: #66ff66; }
-#roast-t { color: #3399ff; }
-#roast-it { color: #9933ff; }
-
-.input-box {
-    border-radius: 50px;
-    border: 2px solid #ffcc00;
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding: 15px;
-    width: 600px;
-    background-color: #333;
-    box-shadow: 0px 0px 10px rgba(255, 255, 0, 0.8);
-    transition: 0.3s ease-in-out;
-}
-
-.input-box:hover {
-    transform: scale(1.05);
-    border-color: #ff4d4d;
-    box-shadow: 0px 0px 20px rgba(255, 77, 77, 0.9);
-}
-
-.input-box img {
-    height: 24px;
-    width: 24px;
-}
-
-.top-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.input-box input {
-    width: 100%;
-    margin-left: 10px;
-    font-size: 16px;
-    border: none;
-    outline: 0;
-    background: transparent;
-    color: white;
-    font-family: 'Open Sans', sans-serif;
-}
-
-#answer-box {
-    width: 700px;
-    margin-top: 50px;
-}
-
-.response-container {
-    background-color: #292929;
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 15px;
-    border-left: 5px solid #ff4d4d;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
-    animation: fadeIn 0.3s ease-in-out;
-}
-
+/* Roast Explosion Effect - Made to Feel Snarky and Chaotic */
 .roast {
     font-family: 'Bungee', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     color: #ff4d4d;
     text-align: center;
+    display: inline-block;
+    position: relative;
+    transition: transform 0.08s ease-in-out, text-shadow 0.08s ease-in-out;
+    cursor: pointer;
 }
 
-.jokes {
-    list-style: none;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.jokes li {
-    margin-top: 10px;
-    font-size: 16px;
-    text-align: center;
-    color: #fff;
-    font-style: italic;
-    transition: transform 0.2s ease-in-out;
-}
-
-.jokes li:hover {
-    transform: scale(1.1);
+/* When hovered, the roast "explodes" with a chaotic effect */
+.roast:hover {
+    transform: scale(1.2) rotate(-2deg);
     color: #ffcc00;
+    text-shadow: 0px 0px 12px rgba(255, 255, 0, 1), 0px 0px 25px rgba(255, 77, 77, 1);
+    animation: chaotic-shake 0.15s infinite alternate;
 }
 
-/* Cool fade-in effect */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Slight erratic shake effect (not a perfect loop, feels more natural) */
+@keyframes chaotic-shake {
+    0% { transform: translateX(0px) rotate(1deg); }
+    20% { transform: translateX(-2px) rotate(-1deg); }
+    40% { transform: translateX(3px) rotate(2deg); }
+    60% { transform: translateX(-3px) rotate(-1.5deg); }
+    80% { transform: translateX(2px) rotate(1.5deg); }
+    100% { transform: translateX(-1px) rotate(-1deg); }
+}
+
+/* Fire emoji "pops" out of nowhere */
+.roast::after {
+    content: "💥🔥";
+    position: absolute;
+    opacity: 0;
+    font-size: 30px;
+    transition: opacity 0.12s ease-in-out, transform 0.12s ease-in-out;
+    left: 50%;
+    top: -30px;
+    transform: translateX(-50%) scale(0.5);
+}
+
+/* Makes explosion visible & chaotic on hover */
+.roast:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.6) rotate(12deg);
+}
+
+/* Adds a sudden, fast blast animation to make it unpredictable */
+@keyframes random-blast {
+    0% { transform: scale(1) translateY(0px) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.3) translateY(-10px) rotate(-5deg); opacity: 1; }
+    100% { transform: scale(2) translateY(-20px) rotate(8deg); opacity: 0; }
+}
+
+/* Random chance of extra blast effect when hovered */
+.roast:hover::after {
+    animation: random-blast 0.3s ease-in-out forwards;
 }
