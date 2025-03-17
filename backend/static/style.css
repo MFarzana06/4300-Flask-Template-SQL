@@ -1,3 +1,4 @@
+/* ========== GENERAL PAGE STYLING ========== */
 .full-body-container {
     position: absolute;
     top: 0;
@@ -12,8 +13,10 @@
     flex-direction: column;
     background-color: #1b1b1b;
     color: white;
+    overflow: hidden;
 }
 
+/* ========== TITLE SECTION (CHAOS MODE) ========== */
 .roast-it-title {
     display: flex;
     align-items: center;
@@ -29,17 +32,28 @@
 .roast-it-title h1 {
     margin-bottom: 0;
     margin-right: 5px;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    position: relative;
 }
 
-#roast-r { color: #ff4d4d; text-shadow: 3px 3px #000; }
+/* Title colors for chaotic effect */
+#roast-r { color: #ff4d4d; }
 #roast-o { color: #ff9933; }
 #roast-a { color: #ffcc00; }
 #roast-s { color: #66ff66; }
 #roast-t { color: #3399ff; }
 #roast-it { color: #9933ff; }
 
-/* EXPLOSION EFFECT */
+/* EXPLOSION: Scatter letters */
+.roast-it-title:hover h1 {
+    transform: translate(
+        calc(-20px + 40px * random()), 
+        calc(-20px + 40px * random())
+    ) rotate(calc(-15deg + 30deg * random()));
+    opacity: 0.8;
+}
+
+/* Random Debris Effect (Small Floating Circles) */
 .explosion {
     position: absolute;
     width: 10px;
@@ -47,36 +61,45 @@
     background-color: #ffcc00;
     border-radius: 50%;
     opacity: 0;
-    transform: scale(1);
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.roast-it-title:hover h1 {
-    transform: scale(1.5) rotate(15deg);
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
 }
 
 /* When hovering, trigger explosion effect */
 .roast-it-title:hover .explosion {
     opacity: 1;
-    animation: explode 0.6s ease-in-out forwards;
+    animation: debris-fly 0.6s ease-in-out forwards;
 }
 
-/* KEYFRAMES FOR EXPLOSION */
-@keyframes explode {
+/* Debris scattered randomly */
+@keyframes debris-fly {
     0% {
         opacity: 1;
         transform: scale(1);
     }
     50% {
-        transform: scale(3);
+        transform: scale(1.5) translate(
+            calc(-30px + 60px * random()), 
+            calc(-30px + 60px * random())
+        );
         opacity: 0.7;
     }
     100% {
-        transform: scale(5) translateY(-50px);
+        transform: scale(2) translate(
+            calc(-50px + 100px * random()), 
+            calc(-50px + 100px * random())
+        );
         opacity: 0;
     }
 }
 
+/* Make sure letters return after "explosion" */
+.roast-it-title:not(:hover) h1 {
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+}
+
+/* ========== SEARCH BAR ========== */
 .input-box {
     border-radius: 50px;
     border: 2px solid #ffcc00;
@@ -90,23 +113,20 @@
     transition: 0.3s ease-in-out;
 }
 
+/* Glowing effect on hover */
 .input-box:hover {
     transform: scale(1.05);
     border-color: #ff4d4d;
     box-shadow: 0px 0px 20px rgba(255, 77, 77, 0.9);
 }
 
+/* Microphone icon */
 .input-box img {
     height: 24px;
     width: 24px;
 }
 
-.top-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
+/* Make input box text visible & funky */
 .input-box input {
     width: 100%;
     margin-left: 10px;
@@ -118,11 +138,13 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+/* ========== RESPONSE CONTAINER ========== */
 #answer-box {
     width: 700px;
     margin-top: 50px;
 }
 
+/* Response Box */
 .response-container {
     background-color: #292929;
     padding: 20px;
@@ -133,33 +155,7 @@
     animation: fadeIn 0.3s ease-in-out;
 }
 
-.roast {
-    font-family: 'Bungee', sans-serif;
-    font-size: 20px;
-    color: #ff4d4d;
-    text-align: center;
-}
-
-.jokes {
-    list-style: none;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.jokes li {
-    margin-top: 10px;
-    font-size: 16px;
-    text-align: center;
-    color: #fff;
-    font-style: italic;
-    transition: transform 0.2s ease-in-out;
-}
-
-.jokes li:hover {
-    transform: scale(1.1);
-    color: #ffcc00;
-}
-
+/* ========== FADE-IN EFFECT ========== */
 @keyframes fadeIn {
     from {
         opacity: 0;
