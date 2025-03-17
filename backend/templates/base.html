@@ -1,54 +1,54 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Roast-It</title>
+<title>{% block title %}{% endblock %} - Flaskr</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Open+Sans:wght@500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&family=Open+Sans:wght@500&display=swap" rel="stylesheet">
 <body>
     <div class="full-body-container">
         <div class="top-text">
-            <div class="roast-it-title">
-                <h1 id="roast-r">R</h1>
-                <h1 id="roast-o">O</h1>
-                <h1 id="roast-a">A</h1>
-                <h1 id="roast-s">S</h1>
-                <h1 id="roast-t">T</h1>
-                <h1 id="roast-it">-IT</h1>
+            <div class="google-colors">
+                <h1 id="google-4">4</h1>
+                <h1 id="google-3">3</h1>
+                <h1 id="google-0-1">0</h1>
+                <h1 id="google-0-2">0</h1>
             </div>
             <div class="input-box" onclick="sendFocus()">
-                <img src="{{ url_for('static', filename='images/mic.png') }}" />
-                <input placeholder="Ask me anything, but prepare to be roasted!" id="filter-text-val" onkeyup="filterText()">
+                <img src="{{ url_for('static', filename='images/mag.png') }}" />
+                <input placeholder="Search for a Keeping up with the Kardashians episode" id="filter-text-val" onkeyup="filterText()">
             </div>
         </div>
-        <div id="answer-box"></div>
+        <div id="answer-box">
+
+        </div>
     </div>
 
     <script>
-        function answerBoxTemplate(roast, jokes) {
-            return `<div class='response-container'>
-                <h3 class='roast'>🔥 ${roast}</h3>
-                <ul class='jokes'>
-                    ${jokes.map(joke => `<li>${joke}</li>`).join('')}
-                </ul>
-            </div>`;
+
+        function answerBoxTemplate(title,titleDesc){
+            return `<div class=''>
+                <h3 class='episode-title'>${title}</h3>
+                <p class='episode-desc'>${titleDesc}</p>
+            </div>`
         }
 
-        function sendFocus() {
-            document.getElementById('filter-text-val').focus();
+        function sendFocus(){
+            document.getElementById('filter-text-val').focus()
         }
 
-        function filterText() {
-            document.getElementById("answer-box").innerHTML = "";
-            let query = document.getElementById("filter-text-val").value;
-            
-            fetch("/roast-it?" + new URLSearchParams({ query: query }).toString())
+        function filterText(){
+            document.getElementById("answer-box").innerHTML = ""
+            console.log(document.getElementById("filter-text-val").value)
+            fetch("/episodes?" + new URLSearchParams({ title: document.getElementById("filter-text-val").value }).toString())
             .then((response) => response.json())
-            .then((data) => {
-                let tempDiv = document.createElement("div");
-                tempDiv.innerHTML = answerBoxTemplate(data.roast, data.jokes);
-                document.getElementById("answer-box").appendChild(tempDiv);
-            });
+            .then((data) => data.forEach(row => {
+                
+                let tempDiv = document.createElement("div")
+                tempDiv.innerHTML = answerBoxTemplate(row.title,row.descr)
+                document.getElementById("answer-box").appendChild(tempDiv)
+            }));
+
         }
+            
     </script>
 </body>
