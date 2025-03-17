@@ -8,13 +8,18 @@
 <body>
     <div class="full-body-container">
         <div class="top-text">
-            <div class="roast-it-title">
+            <div class="roast-it-title" id="roast-logo">
                 <h1 id="roast-r">R</h1>
                 <h1 id="roast-o">O</h1>
                 <h1 id="roast-a">A</h1>
                 <h1 id="roast-s">S</h1>
                 <h1 id="roast-t">T</h1>
                 <h1 id="roast-it">-IT</h1>
+                <!-- Explosion Effect -->
+                <span class="explosion"></span>
+                <span class="explosion"></span>
+                <span class="explosion"></span>
+                <span class="explosion"></span>
             </div>
             <div class="input-box" onclick="sendFocus()">
                 <img src="{{ url_for('static', filename='images/mic.png') }}" />
